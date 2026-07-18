@@ -120,7 +120,7 @@ class _ImageScaleActivityState extends State<ImageScaleActivity> {
                     });
                   },
                   child: Image.network(
-                    'https://picsum.photos/id/1018/1200/800',
+                    'https://i.imgflip.com/9eg2ej.jpg',
                     fit: BoxFit.contain,
                     loadingBuilder: (context, child, loadingProgress) {
                       if (loadingProgress == null) return child;
