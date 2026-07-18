@@ -1,0 +1,50 @@
+============================================================
+           AI USAGE DECLARATION
+============================================================
+
+Name: Abdullah Al Mazid Zomader
+Student ID: 24241189
+Assignment: 02
+Date: 18.07.26
+
+------------------------------------------------------------
+1. AI TOOLS USED (check all that apply)
+------------------------------------------------------------
+[ ] None
+[ ] ChatGPT
+[ ] GitHub Copilot
+[*] Google Gemini
+[*] Claude
+[ ] Cursor
+[ ] Other: ________________
+
+------------------------------------------------------------
+2. PURPOSE OF AI USE (check all that apply)
+------------------------------------------------------------
+[*] Learning/understanding concepts
+[ ] Debugging my code
+[ ] Generating code snippets
+[ ] Writing text content
+[*] Design/styling ideas
+[ ] Image generation
+[ ] Other: ________________
+
+------------------------------------------------------------
+3. DESCRIPTION OF AI USE
+------------------------------------------------------------
+Briefly describe what you used AI for and how:
+- AI was used for learning purpose and designing the layout of the page
+
+
+
+------------------------------------------------------------
+4. DECLARATION
+------------------------------------------------------------
+I declare that:
+- This disclosure is complete and accurate
+- I understand all code in my submission
+- I can explain and modify my work if asked
+- I take full responsibility for my submission
+
+Signature: MAZID
+Date: 18.07.26
