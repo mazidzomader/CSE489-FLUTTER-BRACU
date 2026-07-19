@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:battery_plus/battery_plus.dart';
 import 'main.dart';
 import 'battery_notification_page.dart';
 
@@ -10,7 +11,7 @@ import 'battery_notification_page.dart';
 /// ===========================================================================
 class BroadcastManager {
   BroadcastManager._privateConstructor() {
-    _initBatterySimulation();
+    _initRealBattery();
   }
   static final BroadcastManager instance =
       BroadcastManager._privateConstructor();
@@ -24,34 +25,36 @@ class BroadcastManager {
     _customBroadcastController.add(message);
   }
 
-  // 2. System Battery Notification Receiver Stream (`StreamController.broadcast`)
+  // 2. Real System Battery Stream using battery_plus
+  final Battery _battery = Battery();
   final StreamController<int> _batteryBroadcastController =
       StreamController<int>.broadcast();
   Stream<int> get batteryBroadcastStream => _batteryBroadcastController.stream;
 
-  int _currentBatteryLevel = 85;
-  Timer? _batterySimulationTimer;
+  int _currentBatteryLevel = 0;
+  StreamSubscription<BatteryState>? _batteryStateSubscription;
 
-  void _initBatterySimulation() {
-    // Emulate system battery percentage broadcast updates periodically
-    _batterySimulationTimer = Timer.periodic(const Duration(seconds: 3), (
-      timer,
-    ) {
-      // Simulate slight battery level adjustments or user testing
+  void _initRealBattery() {
+    // Fetch the real battery level immediately on init
+    _battery.batteryLevel.then((level) {
+      _currentBatteryLevel = level;
+      _batteryBroadcastController.add(_currentBatteryLevel);
+    });
+
+    // Listen for battery state changes (charging/discharging) and re-read level
+    _batteryStateSubscription = _battery.onBatteryStateChanged.listen((
+      state,
+    ) async {
+      final level = await _battery.batteryLevel;
+      _currentBatteryLevel = level;
       _batteryBroadcastController.add(_currentBatteryLevel);
     });
   }
 
   void dispose() {
-    _batterySimulationTimer?.cancel();
+    _batteryStateSubscription?.cancel();
     _customBroadcastController.close();
     _batteryBroadcastController.close();
-  }
-
-  /// Helper to trigger/simulate manual battery broadcast
-  void simulateBatteryBroadcast(int newLevel) {
-    _currentBatteryLevel = newLevel.clamp(0, 100);
-    _batteryBroadcastController.add(_currentBatteryLevel);
   }
 
   int get currentBatteryLevel => _currentBatteryLevel;
@@ -392,7 +395,7 @@ class _CustomBroadcastInputActivityState
                           ),
                           icon: const Icon(Icons.podcasts),
                           label: const Text(
-                            'Send Broadcast & Open Activity 3',
+                            'Send Broadcast',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,

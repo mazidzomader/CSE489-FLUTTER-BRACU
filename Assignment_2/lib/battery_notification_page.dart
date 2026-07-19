@@ -100,7 +100,7 @@ class _BatteryNotificationReceiverActivityState
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'Listening to battery percentage broadcast notifications...',
+                      'Displays your device\'s real battery level. Updates automatically when charging state changes.',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.black54),
                     ),
@@ -138,53 +138,6 @@ class _BatteryNotificationReceiverActivityState
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Divider(),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Simulate System Battery Broadcast:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      alignment: WrapAlignment.center,
-                      children: [
-                        _buildBatterySimButton(15, '15% (Low)'),
-                        _buildBatterySimButton(55, '55% (Mid)'),
-                        _buildBatterySimButton(95, '95% (Full)'),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Colors.blue.shade50,
-                        borderRadius: BorderRadius.zero,
-                      ),
-                      child: const Row(
-                        children: [
-                          Icon(
-                            Icons.info_outline,
-                            color: Color(0xFF1E88E5),
-                            size: 20,
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              'Note: Per lab specification, Option 2 (Battery Receiver) completes here. Activity 3 does nothing for this option.',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Color(0xFF1565C0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -192,21 +145,6 @@ class _BatteryNotificationReceiverActivityState
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildBatterySimButton(int level, String label) {
-    return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        foregroundColor: _getBatteryColor(level),
-        side: BorderSide(color: _getBatteryColor(level)),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      ),
-      onPressed: () {
-        BroadcastManager.instance.simulateBatteryBroadcast(level);
-      },
-      child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
     );
   }
 }
